@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug TliasWebManagementApplication",
+            "request": "launch",
+            "mainClass": "example.TliasWebManagementApplication",
+            "classPaths": [
+                "$Auto"
+            ],
+            "cwd": "${workspaceFolder}/tlias-web-management",
+            "console": "integratedTerminal"
+        }
+    ]
+}

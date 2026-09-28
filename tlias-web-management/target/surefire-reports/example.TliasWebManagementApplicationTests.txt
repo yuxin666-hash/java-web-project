@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: example.TliasWebManagementApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.120 s -- in example.TliasWebManagementApplicationTests

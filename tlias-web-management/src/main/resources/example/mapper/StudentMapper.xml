@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="example.mapper.StudentMapper">
+
+    <!--条件分页查询学员列表-->
+    <select id="list" resultType="example.pojo.Student">
+        select s.*, c.name clazzName
+        from student s
+        left join clazz c on s.clazz_id = c.id
+        <where>
+            <if test="name != null and name != ''">
+                and s.name like concat('%', #{name}, '%')
+            </if>
+            <if test="degree != null">
+                and s.degree = #{degree}
+            </if>
+            <if test="clazzId != null">
+                and s.clazz_id = #{clazzId}
+            </if>
+        </where>
+        order by s.update_time desc
+    </select>
+
+    <!--根据ID批量删除学员-->
+    <delete id="deleteByIds">
+        delete from student where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--统计学员学历信息-->
+    <select id="countStudentDegreeData" resultType="java.util.Map">
+        select
+        (case degree when 1 then '初中'
+                     when 2 then '高中'
+                     when 3 then '大专'
+                     when 4 then '本科'
+                     when 5 then '硕士'
+                     when 6 then '博士'
+                     else '其他' end) as name,
+        count(*) as value
+        from student group by degree
+    </select>
+
+    <!--统计每个班级的人数-->
+    <select id="countStudentCountData" resultType="java.util.Map">
+        select c.name as name, count(s.id) as value
+        from clazz c
+        left join student s on s.clazz_id = c.id
+        group by c.id, c.name
+        order by count(s.id) asc, c.id asc
+    </select>
+
+    <!--根据ID修改学员-->
+    <update id="updateById">
+        update student
+        <set>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="no != null and no != ''">no = #{no},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="idCard != null and idCard != ''">id_card = #{idCard},</if>
+            <if test="isCollege != null">is_college = #{isCollege},</if>
+            <if test="address != null and address != ''">address = #{address},</if>
+            <if test="degree != null">degree = #{degree},</if>
+            <if test="graduationDate != null">graduation_date = #{graduationDate},</if>
+            <if test="clazzId != null">clazz_id = #{clazzId},</if>
+            <!--违纪次数与违纪扣分只能通过「违纪处理」接口变更，这里不参与修改-->
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

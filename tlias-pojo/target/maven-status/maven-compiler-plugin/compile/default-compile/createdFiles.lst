@@ -1,0 +1,15 @@
+example\pojo\PageResult.class
+example\pojo\Clazz.class
+example\pojo\Result.class
+example\pojo\Student.class
+example\pojo\LoginInfo.class
+example\pojo\OperateLog.class
+example\pojo\EmpQueryParam.class
+example\pojo\Emp.class
+example\Main.class
+example\pojo\ClazzOption.class
+example\pojo\Dept.class
+example\pojo\StudentQueryParam.class
+example\pojo\JobOption.class
+example\pojo\EmpExpr.class
+example\pojo\ClazzQueryParam.class
